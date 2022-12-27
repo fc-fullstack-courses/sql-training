@@ -1,7 +1,7 @@
 -- CREATE TABLE my_first_table();
 -- DROP TABLE my_first_table;
 CREATE TABLE cars (
-  id serial PRIMARY KEY,
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid (),
   model varchar(100) NOT NULL CHECK (model != ''),
   year_of_production int NOT NULL CHECK (year_of_production > 1900 AND year_of_production < 2024),
   vin_number int NOT NULL UNIQUE,
