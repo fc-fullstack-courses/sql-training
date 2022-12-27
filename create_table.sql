@@ -3,7 +3,7 @@
 CREATE TABLE cars (
   model varchar(100) NOT NULL,
   year_of_production int NOT NULL,
-  vin_number int NOT NULL,
+  vin_number int NOT NULL UNIQUE,
   price numeric(8, 2) NOT NULL,
   is_used boolean NOT NULL,
   created_at date NOT NULL
