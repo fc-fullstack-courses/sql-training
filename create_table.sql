@@ -2,10 +2,10 @@
 -- DROP TABLE my_first_table;
 CREATE TABLE cars (
   id int PRIMARY KEY,
-  model varchar(100) NOT NULL,
-  year_of_production int NOT NULL,
+  model varchar(100) NOT NULL CHECK (model != ''),
+  year_of_production int NOT NULL CHECK (year_of_production > 1900 AND year_of_production < 2024),
   vin_number int NOT NULL UNIQUE,
-  price numeric(8, 2) NOT NULL,
+  price numeric(8, 2) NOT NULL CHECK (price > 0),
   is_used boolean NOT NULL,
   created_at date NOT NULL,
   UNIQUE (model, year_of_production) 
