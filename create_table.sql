@@ -7,7 +7,7 @@ CREATE TABLE cars (
   vin_number int NOT NULL UNIQUE,
   price numeric(8, 2) NOT NULL CHECK (price > 0),
   is_used boolean NOT NULL,
-  created_at date NOT NULL,
+  created_at date NOT NULL CHECK (created_at <= current_date),
   UNIQUE (model, year_of_production) 
   -- PRIMARY KEY (model, year_of_production)
 );
