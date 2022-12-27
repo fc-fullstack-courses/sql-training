@@ -1,13 +1,15 @@
 -- CREATE TABLE my_first_table();
 -- DROP TABLE my_first_table;
 CREATE TABLE cars (
+  id int PRIMARY KEY,
   model varchar(100) NOT NULL,
   year_of_production int NOT NULL,
   vin_number int NOT NULL UNIQUE,
   price numeric(8, 2) NOT NULL,
   is_used boolean NOT NULL,
   created_at date NOT NULL,
-  UNIQUE (model, year_of_production)
+  UNIQUE (model, year_of_production) 
+  -- PRIMARY KEY (model, year_of_production)
 );
 DROP TABLE cars;
 /*
