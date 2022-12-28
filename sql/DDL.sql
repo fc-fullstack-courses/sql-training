@@ -40,3 +40,10 @@ CREATE TABLE car_manufacturers (
   created_at date NOT NULL DEFAULT current_date,
   updated_at date NOT NULL DEFAULT current_date
 );
+-- ADD COLUMNS
+ALTER TABLE cars
+ADD COLUMN color varchar(200);
+--
+ALTER TABLE cars
+ADD COLUMN fuel_capacity numeric(5,2) NOT NULL DEFAULT 1.5;
+--
