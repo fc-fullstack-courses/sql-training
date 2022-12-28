@@ -45,5 +45,10 @@ ALTER TABLE cars
 ADD COLUMN color varchar(200);
 --
 ALTER TABLE cars
-ADD COLUMN fuel_capacity numeric(5,2) NOT NULL DEFAULT 1.5;
+ADD COLUMN fuel_capacity1 numeric(5,2) NOT NULL DEFAULT 1.5,
+ADD COLUMN fuel_capacity2 numeric(5,2) NOT NULL DEFAULT 1.5;
+-- Удаление столбцов
+ALTER TABLE cars
+DROP COLUMN fuel_capacity1,
+DROP COLUMN fuel_capacity2;
 --
