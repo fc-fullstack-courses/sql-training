@@ -60,3 +60,10 @@ SET NOT NULL;
 -- добавление именованного ограничение
 ALTER TABLE cars
 ADD CONSTRAINT "kyrylo_no_like_pink_cars" CHECK(color != 'pink');
+-- Удаление именованого ограничения
+ALTER TABLE cars
+DROP CONSTRAINT "kyrylo_no_like_pink_cars";
+-- удаление NOT NULL
+ALTER TABLE cars
+ALTER COLUMN color
+DROP NOT NULL;
