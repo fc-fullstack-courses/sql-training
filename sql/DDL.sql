@@ -73,3 +73,6 @@ ALTER COLUMN color SET DEFAULT 'red';
 -- Удаление значения по умолчанию
 ALTER TABLE cars
 ALTER COLUMN color DROP DEFAULT;
+-- Изменение типа
+ALTER TABLE cars
+ALTER COLUMN color TYPE varchar(100);
