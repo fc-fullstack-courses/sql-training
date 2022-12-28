@@ -34,8 +34,8 @@ CREATE TABLE car_manufacturers (
   employees int NOT NULL CHECK (employees > 0),
   founding_year int NOT NULL CHECK (founding_year > 1900),
   country_of_origin varchar(128) NOT NULL CHECK (country_of_origin != ''),
-  share_price numeric(10,2) NOT NULL CHECK (share_price >= 0),
-  ceo varchar(128) NOT NULL CHECK ( ceo != ''), 
+  share_price numeric(10, 2) NOT NULL CHECK (share_price >= 0),
+  ceo varchar(128) NOT NULL CHECK (ceo != ''),
   -- ceo_id integer NOT NULL
   created_at date NOT NULL DEFAULT current_date,
   updated_at date NOT NULL DEFAULT current_date
@@ -45,10 +45,18 @@ ALTER TABLE cars
 ADD COLUMN color varchar(200);
 --
 ALTER TABLE cars
-ADD COLUMN fuel_capacity1 numeric(5,2) NOT NULL DEFAULT 1.5,
-ADD COLUMN fuel_capacity2 numeric(5,2) NOT NULL DEFAULT 1.5;
+ADD COLUMN fuel_capacity1 numeric(5, 2) NOT NULL DEFAULT 1.5,
+  ADD COLUMN fuel_capacity2 numeric(5, 2) NOT NULL DEFAULT 1.5;
 -- Удаление столбцов
+ALTER TABLE cars DROP COLUMN fuel_capacity1,
+  DROP COLUMN fuel_capacity2;
+-- Добавление ограничений
 ALTER TABLE cars
-DROP COLUMN fuel_capacity1,
-DROP COLUMN fuel_capacity2;
---
+ADD CHECK(color != '');
+-- добавление NOT NULL
+ALTER TABLE cars
+ALTER COLUMN color
+SET NOT NULL;
+-- добавление именованного ограничение
+ALTER TABLE cars
+ADD CONSTRAINT "kyrylo_no_like_pink_cars" CHECK(color != 'pink');
