@@ -67,3 +67,9 @@ DROP CONSTRAINT "kyrylo_no_like_pink_cars";
 ALTER TABLE cars
 ALTER COLUMN color
 DROP NOT NULL;
+-- Установка / изменение DEFAULT
+ALTER TABLE cars
+ALTER COLUMN color SET DEFAULT 'red';
+-- Удаление значения по умолчанию
+ALTER TABLE cars
+ALTER COLUMN color DROP DEFAULT;
