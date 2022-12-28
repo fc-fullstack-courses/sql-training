@@ -61,3 +61,19 @@ VALUES (
 -- (model)
 -- VALUES 
 -- ('');
+INSERT INTO car_manufacturers (
+    name,
+    employees,
+    founding_year,
+    country_of_origin,
+    share_price,
+    ceo
+  )
+VALUES (
+    'Toyota',
+    5000,
+    1950,
+    'Japan',
+    4.5,
+    'Miyamoto Toyota'
+  );
