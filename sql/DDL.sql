@@ -76,3 +76,8 @@ ALTER COLUMN color DROP DEFAULT;
 -- Изменение типа
 ALTER TABLE cars
 ALTER COLUMN color TYPE varchar(100);
+-- переименование таблицы
+ALTER TABLE cars RENAME TO automobiles;
+-- переименование столбца
+ALTER TABLE automobiles
+RENAME COLUMN model TO car_name;
