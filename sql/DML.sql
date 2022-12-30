@@ -77,3 +77,14 @@ VALUES (
     4.5,
     'Miyamoto Toyota'
   );
+-- UPDATE
+UPDATE users -- в какой таблице обновляем
+SET name = 'Anton Antonovich' -- Говорите новое значение для поля
+WHERE name = 'test'; -- пишем условие, все строки соблюдающие его будут изменены
+-- обновление всех строк
+UPDATE users
+SET height = 1.50;
+-- обновление нескольки полей
+UPDATE users
+SET weigth = 75, birthday = '03-03-1994'
+WHERE id = 20;

@@ -68,3 +68,7 @@ CREATE TABLE orders_to_products(
   (2, 2) +
   (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 5) -
 */
+ALTER TABLE users
+ADD COLUMN birthday date,
+ADD COLUMN height numeric(3,2) CHECK (height > 0.2),
+ADD COLUMN weigth smallint CHECK (weigth < 1500);
