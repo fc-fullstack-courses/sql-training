@@ -1,4 +1,6 @@
 import pg from 'pg';
+import { mapUsers } from './utils/index.mjs';
+
 const { Client } = pg;
 
 const config = {
@@ -11,12 +13,20 @@ const config = {
 
 const client = new Client(config);
 
-const user = {
-  name: 'TEST USER 12345',
-  email: 'testMail12345@test.test',
-  password: '548tg4fb8fb2rt2482',
-  phoneNum: '7985648645',
-};
+const users = [
+  {
+    name: 'TEST USER 123456',
+    email: 'testMail123456@test.test',
+    password: '548tg4fb8fb2rt248212321',
+    phoneNum: '12431434',
+  },
+  {
+    name: 'TEST USER 213423',
+    email: 'testMail4543546@test.test',
+    password: 'fdsfdg45345',
+    phoneNum: '235454643',
+  },
+];
 
 await client.connect();
 
@@ -27,12 +37,8 @@ const { rows } = await client.query(`
     "password", 
     "phone_num"
     )
-  VALUES (
-    '${user.name}',
-    '${user.email}',
-    '${user.password}',
-    '${user.phoneNum}'
-  ) RETURNING *;
+  VALUES ${mapUsers(users)}
+  RETURNING *;
 `);
 
 console.log(rows);
