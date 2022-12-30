@@ -90,7 +90,8 @@ SET weigth = 75, birthday = '03-03-1994'
 WHERE id = 20;
 -- DELETE
 DELETE FROM users -- удаляем из таблицы
-WHERE id > 3 AND id < 1000; -- условие удаления
+WHERE id > 3 AND id < 1000 -- условие удаления
+RETURNING id, name, email; -- вернуть в качестве реузльтатов анные из указанных столбцов. * возвращает все столбцы по порядку
 --
 DELETE FROM orders_to_products; -- удаление всех данных в таблице
 TRUNCATE TABLE orders_to_products; -- более быстрое удаление всех данных
