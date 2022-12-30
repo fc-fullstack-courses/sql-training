@@ -88,3 +88,9 @@ SET height = 1.50;
 UPDATE users
 SET weigth = 75, birthday = '03-03-1994'
 WHERE id = 20;
+-- DELETE
+DELETE FROM users -- удаляем из таблицы
+WHERE id > 3 AND id < 1000; -- условие удаления
+--
+DELETE FROM orders_to_products; -- удаление всех данных в таблице
+TRUNCATE TABLE orders_to_products; -- более быстрое удаление всех данных
