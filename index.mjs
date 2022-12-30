@@ -1,6 +1,6 @@
 import pg from 'pg';
+import { getUsers } from './api/index.mjs';
 import { mapUsers } from './utils/index.mjs';
-
 const { Client } = pg;
 
 const config = {
@@ -13,20 +13,7 @@ const config = {
 
 const client = new Client(config);
 
-const users = [
-  {
-    name: 'TEST USER 123456',
-    email: 'testMail123456@test.test',
-    password: '548tg4fb8fb2rt248212321',
-    phoneNum: '12431434',
-  },
-  {
-    name: 'TEST USER 213423',
-    email: 'testMail4543546@test.test',
-    password: 'fdsfdg45345',
-    phoneNum: '235454643',
-  },
-];
+const users = await getUsers();
 
 await client.connect();
 
