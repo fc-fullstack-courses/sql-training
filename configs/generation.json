@@ -28,6 +28,12 @@
     "minPrice": 100,
     "maxPrice": 50000,
     "minQuantity": 1000,
-    "maxQuantity": 25000 
+    "maxQuantity": 25000
+  },
+  "orders": {
+    "minOrders": 1,
+    "maxOrders": 5,
+    "minQuantity": 1,
+    "maxQuantity": 10
   }
 }
