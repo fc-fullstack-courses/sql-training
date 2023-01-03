@@ -1,16 +1,9 @@
 import pg from 'pg';
 import fs from 'fs/promises';
+import config from './configs/db.json' assert { type: "json" };
 import { getUsers } from './api/index.mjs';
 import { mapUsers } from './utils/index.mjs';
 const { Client } = pg;
-
-const config = {
-  user: 'postgres',
-  password: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  database: 'not_rozetka',
-};
 
 const client = new Client(config);
 
@@ -24,9 +17,9 @@ await client.query(resetDBQuery);
 
 // const { rows } = await client.query(`
 //   INSERT INTO users (
-//     "name", 
-//     "email", 
-//     "password", 
+//     "name",
+//     "email",
+//     "password",
 //     "phone_num"
 //     )
 //   VALUES ${mapUsers(users)}
