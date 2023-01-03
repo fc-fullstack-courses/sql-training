@@ -4,8 +4,7 @@ DROP TABLE IF EXISTS reviews CASCADE;
 DROP TABLE IF EXISTS ratings CASCADE;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
-
--- CREATE TABLE IF NOT EXISTS users
+--
 CREATE TABLE users (
   id serial PRIMARY KEY,
   first_name varchar(256) NOT NULL CHECK (first_name != ''),
@@ -27,7 +26,7 @@ CREATE TABLE products (
   description varchar(5000),
   price numeric(10, 2) NOT NULL CHECK(price > 0),
   quantity int NOT NULL CHECK (quantity >= 0),
-  category NOT NULL CHECK (category != ''),
+  category varchar(256) NOT NULL CHECK (category != ''),
   -- могла быть еще таблица производителей
   manufacturer varchar (256) NOT NULL CHECK(manufacturer != ''),
   min_age smallint CHECK (min_age > 0),
