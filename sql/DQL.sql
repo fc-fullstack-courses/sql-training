@@ -12,7 +12,25 @@ SELECT extract (year from age(birthday)), *  FROM users;
 --
 SELECT *
 FROM users
-WHERE height < 2;
+WHERE height < 1.5;
+--
+SELECT *
+FROM users
+WHERE height < 1.5 AND weigth < 90;
+-- покажите всех женщин с ростом 1.72
+SELECT *
+FROM users
+WHERE is_male = false AND height = 1.72;
+--
+SELECT *
+FROM users
+WHERE first_name IN ('Victoria', 'Julia');
+-- WHERE first_name = 'Victoria' OR first_name = 'Julia';
+--
+SELECT *
+FROM users
+WHERE weigth BETWEEN 50 AND 90;
+-- WHERE weigth >= 50 AND weigth <= 90;
 -- найти всех пользователей которым за 30 и показать еще их вострасті
 SELECT *, extract (year from age(birthday)) 
 FROM users
