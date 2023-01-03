@@ -4,5 +4,30 @@
     "maxHeight": 2,
     "minWeigth": 40,
     "maxWeigth": 150
+  },
+  "products": {
+    "amountProducts": 100,
+    "categories": [
+      "food",
+      "books",
+      "phones",
+      "keyboards",
+      "pets",
+      "powerstations",
+      "lights",
+      "misc"
+    ],
+    "manufacturers": [
+      "Apple",
+      "Google",
+      "Microsoft",
+      "Rozetka",
+      "Powerbanker",
+      "Tesla"
+    ],
+    "minPrice": 100,
+    "maxPrice": 50000,
+    "minQuantity": 1000,
+    "maxQuantity": 25000 
   }
 }

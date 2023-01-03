@@ -3,6 +3,15 @@ import generationConfig from '../configs/generation.json' assert { type: 'json' 
 
 const {
   users: { maxHeight, maxWeigth, minHeight, minWeigth },
+  products: {
+    categories,
+    manufacturers,
+    maxPrice,
+    maxQuantity,
+    minPrice,
+    minQuantity,
+    amountProducts,
+  },
 } = generationConfig;
 
 function createUserQueryValues(user) {
@@ -27,7 +36,25 @@ function createUserQueryValues(user) {
   )`;
 }
 
+function createProductQueryValues(value, index) {
+  return `(
+    'Product ${index}',
+    ${_.random(minPrice, maxPrice, true)},
+    ${_.random(minQuantity, maxQuantity, false)},
+    '${categories[_.random(0, categories.length - 1, false)]}',
+    '${manufacturers[_.random(0, manufacturers.length - 1, false)]}'
+  )`;
+}
+
 export const mapUsers = (users) => {
   const usersElems = users.map(createUserQueryValues);
   return usersElems.join(',');
+};
+
+export const mapProducts = (amountOfProducts = amountProducts) => {
+  const usersElems = new Array(amountOfProducts)
+    .fill(undefined)
+    .map(createProductQueryValues)
+    .join(',');
+  return usersElems;
 };
