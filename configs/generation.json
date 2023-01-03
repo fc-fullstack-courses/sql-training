@@ -1,0 +1,8 @@
+{
+  "users": {
+    "minHeight": 1,
+    "maxHeight": 2,
+    "minWeigth": 40,
+    "maxWeigth": 150
+  }
+}
