@@ -1,11 +1,13 @@
 import pg from 'pg';
 import fs from 'fs/promises';
-import config from './configs/db.json' assert { type: "json" };
+import config from './configs/db.json' assert { type: 'json' };
+import User from './models/User.mjs';
 import { getUsers } from './api/index.mjs';
-import { mapUsers } from './utils/index.mjs';
 const { Client } = pg;
 
 const client = new Client(config);
+
+User._client = client;
 
 const users = await getUsers();
 
@@ -15,17 +17,8 @@ const resetDBQuery = await fs.readFile('./sql/not-rozetka/tables.sql', 'utf-8');
 
 await client.query(resetDBQuery);
 
-// const { rows } = await client.query(`
-//   INSERT INTO users (
-//     "name",
-//     "email",
-//     "password",
-//     "phone_num"
-//     )
-//   VALUES ${mapUsers(users)}
-//   RETURNING *;
-// `);
+const createdUsers = await User.bulkCreate(users);
 
-// console.log(rows);
+console.log(createdUsers);
 
 await client.end();
