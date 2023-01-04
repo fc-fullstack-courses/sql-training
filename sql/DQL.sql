@@ -35,3 +35,9 @@ WHERE weigth BETWEEN 50 AND 90;
 SELECT *, extract (year from age(birthday)) 
 FROM users
 WHERE extract (year from age(birthday)) > 30;
+--
+SELECT *
+FROM users
+LIMIT 10 -- показывает Х записей
+OFFSET 10 -- игнорит первые Х записей
+;
