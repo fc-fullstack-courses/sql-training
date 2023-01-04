@@ -118,3 +118,27 @@ GROUP BY is_male;
 
   пользователь и количество заказов которое он совершил
 */
+-- Цена самого дешевого повербанка
+SELECT min(price)
+FROM products
+WHERE category = 'powerstations';
+-- Максимальная цена для каждого производителя
+SELECT manufacturer , max(price)
+FROM products
+GROUP BY manufacturer;
+-- Общая стоимость выкупа всего склада товаров
+SELECT sum ( price * quantity)
+FROM products;
+-- пользователь и количество заказов которое он совершил
+SELECT user_id, count(*)
+FROM orders
+GROUP BY user_id;
+--
+SELECT count(*)
+FROM orders
+WHERE user_id = 5;
+-- 
+SELECT user_id, count(*)
+FROM orders
+WHERE user_id = 5
+GROUP BY user_id;
