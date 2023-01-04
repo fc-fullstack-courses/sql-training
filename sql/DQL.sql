@@ -41,3 +41,10 @@ FROM users
 LIMIT 10 -- показывает Х записей
 OFFSET 10 -- игнорит первые Х записей
 ;
+--
+SELECT *
+FROM (
+  SELECT *, extract (year from age(birthday)) as age
+  FROM users
+) AS with_age
+WHERE age > 30;
