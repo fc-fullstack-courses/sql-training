@@ -105,6 +105,16 @@ WHERE is_male != true;
 -- SELECT avg(height)
 -- FROM users
 -- WHERE is_male;
-SELECT is_male, avg(height)
+SELECT is_male, avg(height), avg(weigth)
 FROM users
 GROUP BY is_male;
+/*
+  количество товаров на складе
+  количество проданных товаров
+  средняя цена товаров
+  Цена самого дешевого повербанка
+  Максимальная цена для каждого производителя
+  Общая стоимость выкупа всего склада товаров
+
+  пользователь и количество заказов которое он совершил
+*/
