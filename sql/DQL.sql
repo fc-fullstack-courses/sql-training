@@ -80,3 +80,31 @@ FROM (
   FROM users
 ) users_with_full_name
 WHERE length(full_name) > 16;
+--
+SELECT avg(height) "Средний рост пользователей"
+FROM users;
+/*
+  avg - поиск среднего значения
+  min - ищет минимальное значение
+  max - ищет максимальное значение
+  count - количество строк / кортежей 
+  sum - как сумма бисконечного кол-ва цифр в JS
+*/
+-- максимальный вес
+SELECT max(weigth), id, email
+FROM users;
+-- количество женщин
+SELECT count (*)
+FROM users
+WHERE is_male != true;
+-- найти средний рост мужчин и женщин
+-- SELECT avg(height)
+-- FROM users
+-- WHERE NOT is_male;
+-- --
+-- SELECT avg(height)
+-- FROM users
+-- WHERE is_male;
+SELECT is_male, avg(height)
+FROM users
+GROUP BY is_male;
