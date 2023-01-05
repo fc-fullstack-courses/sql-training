@@ -185,3 +185,13 @@ SELECT manufacturer
 FROM products
 GROUP BY manufacturer
 HAVING sum(quantity) > 231000;
+-- найти 5 самых дорогих товаров из категории еды
+SELECT id, name, category, price, manufacturer
+FROM products
+WHERE category = 'food'
+ORDER BY price DESC
+LIMIT 5;
+--
+SELECT * FROM users
+ORDER BY height ASC, birthday DESC;
+--
