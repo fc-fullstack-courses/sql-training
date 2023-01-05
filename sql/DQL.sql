@@ -194,4 +194,10 @@ LIMIT 5;
 --
 SELECT * FROM users
 ORDER BY height ASC, birthday DESC;
---
+-- отсортируйте пользователей по:
+-- 1. весу от болего к меньшему
+-- 2. отсортируйте по полу
+-- 3. по имени
+-- 4. по номерам телефонов 
+SELECT * FROM users
+ORDER BY weigth DESC, is_male, first_name DESC, phone_num ;
