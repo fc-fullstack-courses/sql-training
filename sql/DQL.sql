@@ -70,28 +70,32 @@ SELECT concat(first_name, ' ', last_name) as full_name, *
 FROM users;
 -- Показать всех пользователей, полное имя которых больше 16 символов
 -- для конечного решения использовать подзапрос
-SELECT concat(first_name, ' ', last_name) as full_name, * 
+SELECT concat(first_name, ' ', last_name) as full_name,
+  *
 FROM users
-WHERE length( concat(first_name, ' ', last_name) ) > 16;
+WHERE length(concat(first_name, ' ', last_name)) > 16;
 --
 SELECT *
 FROM (
-  SELECT concat(first_name, ' ', last_name) as full_name, *
-  FROM users
-) users_with_full_name
+    SELECT concat(first_name, ' ', last_name) as full_name,
+      *
+    FROM users
+  ) users_with_full_name
 WHERE length(full_name) > 16;
 --
 SELECT avg(height) "Средний рост пользователей"
 FROM users;
 /*
-  avg - поиск среднего значения
-  min - ищет минимальное значение
-  max - ищет максимальное значение
-  count - количество строк / кортежей 
-  sum - как сумма бисконечного кол-ва цифр в JS
-*/
+ avg - поиск среднего значения
+ min - ищет минимальное значение
+ max - ищет максимальное значение
+ count - количество строк / кортежей 
+ sum - как сумма бисконечного кол-ва цифр в JS
+ */
 -- максимальный вес
-SELECT max(weigth), id, email
+SELECT max(weigth),
+  id,
+  email
 FROM users;
 -- количество женщин
 SELECT count (*)
@@ -105,32 +109,36 @@ WHERE is_male != true;
 -- SELECT avg(height)
 -- FROM users
 -- WHERE is_male;
-SELECT is_male, avg(height), avg(weigth)
+SELECT is_male,
+  avg(height),
+  avg(weigth)
 FROM users
 GROUP BY is_male;
 /*
-  количество товаров на складе
-  количество проданных товаров
-  средняя цена товаров
-  Цена самого дешевого повербанка
-  Максимальная цена для каждого производителя
-  Общая стоимость выкупа всего склада товаров
-
-  пользователь и количество заказов которое он совершил
-*/
+ количество товаров на складе
+ количество проданных товаров
+ средняя цена товаров
+ Цена самого дешевого повербанка
+ Максимальная цена для каждого производителя
+ Общая стоимость выкупа всего склада товаров
+ 
+ пользователь и количество заказов которое он совершил
+ */
 -- Цена самого дешевого повербанка
 SELECT min(price)
 FROM products
 WHERE category = 'powerstations';
 -- Максимальная цена для каждого производителя
-SELECT manufacturer , max(price)
+SELECT manufacturer,
+  max(price)
 FROM products
 GROUP BY manufacturer;
 -- Общая стоимость выкупа всего склада товаров
-SELECT sum ( price * quantity)
+SELECT sum (price * quantity)
 FROM products;
 -- пользователь и количество заказов которое он совершил
-SELECT user_id, count(*)
+SELECT user_id,
+  count(*)
 FROM orders
 GROUP BY user_id;
 --
@@ -138,7 +146,35 @@ SELECT count(*)
 FROM orders
 WHERE user_id = 5;
 -- 
-SELECT user_id, count(*)
+SELECT user_id,
+  count(*)
 FROM orders
 WHERE user_id = 5
 GROUP BY user_id;
+-- сколько пользователей конкретных возрастов
+-- показать только группы, в которых больше 15 людей
+SELECT count (*) "Количество пользователей", "Возраст"
+FROM (
+  SELECT extract(
+    years
+    from age(birthday)
+  ) "Возраст",
+  *
+  FROM users
+) users_age
+GROUP BY "Возраст"
+HAVING count (*) > 15;
+--
+SELECT * FROM (
+  SELECT count (*) "Количество пользователей", "Возраст"
+  FROM (
+    SELECT extract(
+      years
+      from age(birthday)
+    ) "Возраст",
+    *
+    FROM users
+  ) users_age
+  GROUP BY "Возраст"
+  ) as age_and_amount
+WHERE "Количество пользователей" > 15;
