@@ -201,3 +201,13 @@ ORDER BY height ASC, birthday DESC;
 -- 4. по номерам телефонов 
 SELECT * FROM users
 ORDER BY weigth DESC, is_male, first_name DESC, phone_num ;
+-- показать всех пользователей c именем, начниающимся на I
+SELECT * FROM users
+WHERE first_name LIKE '%o%O%';
+-- 
+SELECT * FROM users
+WHERE first_name ILIKE '%o%O%';
+/*
+LIKE - жесткая версия
+ILIKE - нежесткая
+*/
