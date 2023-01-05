@@ -216,3 +216,5 @@ SELECT * FROM users
 WHERE first_name ~ '^I.*';
 --
 SELECT * FROM users WHERE first_name ~* '^i.*';
+--
+SELECT * FROM users WHERE first_name SIMILAR TO 'I%';
