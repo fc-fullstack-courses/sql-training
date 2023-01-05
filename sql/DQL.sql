@@ -181,3 +181,7 @@ WHERE "Количество пользователей" > 15;
 -- Покажите всех производителей
 -- у которых количество товаров на складе
 -- больше 1 млн едениц
+SELECT manufacturer
+FROM products
+GROUP BY manufacturer
+HAVING sum(quantity) > 231000;
