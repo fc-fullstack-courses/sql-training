@@ -203,7 +203,7 @@ SELECT * FROM users
 ORDER BY weigth DESC, is_male, first_name DESC, phone_num ;
 -- показать всех пользователей c именем, начниающимся на I
 SELECT * FROM users
-WHERE first_name LIKE '%o%O%';
+WHERE first_name LIKE 'I%';
 -- 
 SELECT * FROM users
 WHERE first_name ILIKE '%o%O%';
@@ -211,3 +211,8 @@ WHERE first_name ILIKE '%o%O%';
 LIKE - жесткая версия
 ILIKE - нежесткая
 */
+-- регулярки
+SELECT * FROM users 
+WHERE first_name ~ '^I.*';
+--
+SELECT * FROM users WHERE first_name ~* '^i.*';
