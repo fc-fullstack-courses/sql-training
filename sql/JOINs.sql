@@ -95,6 +95,11 @@ JOIN products p ON p.id = product_id
 WHERE order_id = 1
 GROUP BY order_id;
 -- данные о товаре и в скольких заказах он есть
+SELECT p.*, count(*)
+FROM products p
+JOIN orders_to_products otp ON product_id = p.id
+GROUP BY p.id 
+ORDER BY count(*) ASC;
 /*
 показать все отзывы и оценки
 
