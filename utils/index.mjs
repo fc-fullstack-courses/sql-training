@@ -12,6 +12,7 @@ const {
     minQuantity,
     amountProducts,
   },
+  orders: { minOrders, maxOrders },
 } = generationConfig;
 
 function createUserQueryValues(user) {
@@ -58,3 +59,13 @@ export const mapProducts = (amountOfProducts = amountProducts) => {
     .join(',');
   return usersElems;
 };
+
+export const mapOrders = (users) =>
+  users
+    .map((user) =>
+      new Array(_.random(minOrders, maxOrders, false))
+        .fill(undefined)
+        .map(() => `(${user.id})`)
+        .join(',')
+    )
+    .join(',');

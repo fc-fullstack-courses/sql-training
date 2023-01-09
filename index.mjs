@@ -4,14 +4,13 @@ import _ from 'lodash';
 import config from './configs/db.json' assert { type: 'json' };
 import User from './models/User.mjs';
 import Product from './models/Product.mjs';
+import Order from './models/Order.mjs';
 import { getUsers } from './api/index.mjs';
 import generationConfig from './configs/generation.json' assert { type: 'json' };
 
 const { Client } = pg;
 const {
   orders: {
-    maxOrders,
-    minOrders,
     chanceToMakeOrder,
     maxQuantity,
     minQuantity,
@@ -24,6 +23,8 @@ const client = new Client(config);
 
 User._client = client;
 Product._client = client;
+Order._client = client;
+
 const users = await getUsers();
 
 await client.connect();
@@ -40,22 +41,7 @@ const orderingUsers = createdUsers.filter(
   () => _.random(0, 100) <= chanceToMakeOrder
 );
 
-const ordersString = orderingUsers
-  .map((user) =>
-    new Array(_.random(minOrders, maxOrders, false))
-      .fill(undefined)
-      .map(() => `(${user.id})`)
-      .join(',')
-  )
-  .join(',');
-
-const { rows: orders } = await client.query(`
-INSERT INTO orders (
-  user_id
-)
-VALUES ${ordersString}
-RETURNING id;
-`);
+const orders = await Order.bulkCreate(orderingUsers);
 
 // наполнить заказы
 const ordersToProductsString = orders
