@@ -4,6 +4,11 @@ import models from './models/index.mjs';
 import { getUsers } from './api/index.mjs';
 import generationConfig from './configs/generation.json' assert { type: 'json' };
 import { mapOrdersToProducts } from './utils/index.mjs';
+import {
+  generateReviewsMap,
+  mapRatings,
+  mapReviews,
+} from './utils/reviewsHelpers.mjs';
 
 const {
   orders: { chanceToMakeOrder },
@@ -37,6 +42,22 @@ INSERT INTO orders_to_products (
 )
 VALUES ${mapOrdersToProducts(orders, products)}
 RETURNING *;
+`);
+
+const reviewsMap = generateReviewsMap(orders, ordersWithProductsRes.rows);
+
+await client.query(`
+BEGIN;
+
+INSERT INTO reviews
+(user_id, product_id, rating_id, description)
+VALUES ${mapReviews(reviewsMap)};
+
+INSERT INTO ratings
+(review_id, rating)
+VALUES ${mapRatings(reviewsMap)};
+
+COMMIT;
 `);
 
 await client.end();
