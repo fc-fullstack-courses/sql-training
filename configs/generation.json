@@ -33,6 +33,7 @@
   "orders": {
     "minOrders": 1,
     "maxOrders": 5,
+    "chanceToMakeOrder": 25,
     "minQuantity": 1,
     "maxQuantity": 10,
     "minProductsInOrder": 1,

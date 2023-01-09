@@ -12,6 +12,7 @@ const {
   orders: {
     maxOrders,
     minOrders,
+    chanceToMakeOrder,
     maxQuantity,
     minQuantity,
     minProductsInOrder,
@@ -35,7 +36,11 @@ const createdUsers = await User.bulkCreate(users);
 const products = await Product.bulkCreate();
 
 // создаем заказы
-const ordersString = createdUsers
+const orderingUsers = createdUsers.filter(
+  () => _.random(0, 100) <= chanceToMakeOrder
+);
+
+const ordersString = orderingUsers
   .map((user) =>
     new Array(_.random(minOrders, maxOrders, false))
       .fill(undefined)
@@ -56,7 +61,9 @@ RETURNING id;
 const ordersToProductsString = orders
   .map((order) => {
     // отбор продуктов
-    const productsInOrder = new Array(_.random(minProductsInOrder, maxProductsInOrder))
+    const productsInOrder = new Array(
+      _.random(minProductsInOrder, maxProductsInOrder)
+    )
       .fill(undefined)
       .map(() => products[_.random(0, products.length - 1)]);
 
