@@ -3,15 +3,10 @@ import _ from 'lodash';
 import models from './models/index.mjs';
 import { getUsers } from './api/index.mjs';
 import generationConfig from './configs/generation.json' assert { type: 'json' };
+import { mapOrdersToProducts } from './utils/index.mjs';
 
 const {
-  orders: {
-    chanceToMakeOrder,
-    maxQuantity,
-    minQuantity,
-    minProductsInOrder,
-    maxProductsInOrder,
-  },
+  orders: { chanceToMakeOrder },
 } = generationConfig;
 
 const { client, User, Product, Order } = models;
@@ -34,35 +29,13 @@ const orderingUsers = createdUsers.filter(
 
 const orders = await Order.bulkCreate(orderingUsers);
 
-// наполнить заказы
-const ordersToProductsString = orders
-  .map((order) => {
-    // отбор продуктов
-    const productsInOrder = new Array(
-      _.random(minProductsInOrder, maxProductsInOrder)
-    )
-      .fill(undefined)
-      .map(() => products[_.random(0, products.length - 1)]);
-
-    // отсортировать повторяющиеся продукты
-    const filteredProducts = [...new Set(productsInOrder)];
-    // вернуть строку типа (1, 4 , 18)
-    return filteredProducts
-      .map(
-        (product) =>
-          `(${order.id}, ${product.id}, ${_.random(minQuantity, maxQuantity)})`
-      )
-      .join(',');
-  })
-  .join(',');
-
 await client.query(`
 INSERT INTO orders_to_products (
   order_id,
   product_id,
   quantity
 )
-VALUES ${ordersToProductsString};
+VALUES ${mapOrdersToProducts(orders, products)};
 `);
 
 await client.end();

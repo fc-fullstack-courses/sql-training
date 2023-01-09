@@ -12,7 +12,14 @@ const {
     minQuantity,
     amountProducts,
   },
-  orders: { minOrders, maxOrders },
+  orders: {
+    minOrders,
+    maxOrders,
+    minProductsInOrder,
+    maxProductsInOrder,
+    minQuantity: minOrderQuantity,
+    maxQuantity: maxOrderQuantity,
+  },
 } = generationConfig;
 
 function createUserQueryValues(user) {
@@ -68,4 +75,29 @@ export const mapOrders = (users) =>
         .map(() => `(${user.id})`)
         .join(',')
     )
+    .join(',');
+
+export const mapOrdersToProducts = (orders, products) =>
+  orders
+    .map((order) => {
+      // отбор продуктов
+      const productsInOrder = new Array(
+        _.random(minProductsInOrder, maxProductsInOrder)
+      )
+        .fill(undefined)
+        .map(() => products[_.random(0, products.length - 1)]);
+
+      // отсортировать повторяющиеся продукты
+      const filteredProducts = [...new Set(productsInOrder)];
+      // вернуть строку типа (1, 4 , 18)
+      return filteredProducts
+        .map(
+          (product) =>
+            `(${order.id}, ${product.id}, ${_.random(
+              minOrderQuantity,
+              maxOrderQuantity
+            )})`
+        )
+        .join(',');
+    })
     .join(',');
