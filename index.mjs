@@ -29,13 +29,14 @@ const orderingUsers = createdUsers.filter(
 
 const orders = await Order.bulkCreate(orderingUsers);
 
-await client.query(`
+const ordersWithProductsRes = await client.query(`
 INSERT INTO orders_to_products (
   order_id,
   product_id,
   quantity
 )
-VALUES ${mapOrdersToProducts(orders, products)};
+VALUES ${mapOrdersToProducts(orders, products)}
+RETURNING *;
 `);
 
 await client.end();

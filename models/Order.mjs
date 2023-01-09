@@ -10,7 +10,7 @@ class Order {
       user_id
     )
     VALUES ${mapOrders(users)}
-    RETURNING id;
+    RETURNING *;
     `);
 
     return rows;
