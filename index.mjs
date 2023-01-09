@@ -9,7 +9,14 @@ import generationConfig from './configs/generation.json' assert { type: 'json' }
 
 const { Client } = pg;
 const {
-  orders: { maxOrders, minOrders, maxQuantity, minQuantity },
+  orders: {
+    maxOrders,
+    minOrders,
+    maxQuantity,
+    minQuantity,
+    minProductsInOrder,
+    maxProductsInOrder,
+  },
 } = generationConfig;
 
 const client = new Client(config);
@@ -49,7 +56,7 @@ RETURNING id;
 const ordersToProductsString = orders
   .map((order) => {
     // отбор продуктов
-    const productsInOrder = new Array(_.random(1, 5))
+    const productsInOrder = new Array(_.random(minProductsInOrder, maxProductsInOrder))
       .fill(undefined)
       .map(() => products[_.random(0, products.length - 1)]);
 

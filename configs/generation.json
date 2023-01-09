@@ -34,6 +34,8 @@
     "minOrders": 1,
     "maxOrders": 5,
     "minQuantity": 1,
-    "maxQuantity": 10
+    "maxQuantity": 10,
+    "minProductsInOrder": 1,
+    "maxProductsInOrder": 10
   }
 }
