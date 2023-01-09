@@ -116,3 +116,13 @@ ORDER BY count(*) ASC;
 **все заказы со стоимостью заказа выше средней стоимости заказа (подзапросы)
 
 */
+
+--@block показать все отзывы и оценки
+SELECT rev.id, user_id, product_id, rating, description 
+FROM reviews rev
+JOIN ratings rat ON rat.review_id = rev.id;
+--@block количество заказов каждого пользователя и его имя и фамилию
+SELECT u.id, first_name, last_name, count(o.id)
+FROM users u
+LEFT JOIN orders o ON user_id = u.id
+GROUP BY u.id;
