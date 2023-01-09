@@ -1,14 +1,9 @@
-import pg from 'pg';
 import fs from 'fs/promises';
 import _ from 'lodash';
-import config from './configs/db.json' assert { type: 'json' };
-import User from './models/User.mjs';
-import Product from './models/Product.mjs';
-import Order from './models/Order.mjs';
+import models from './models/index.mjs';
 import { getUsers } from './api/index.mjs';
 import generationConfig from './configs/generation.json' assert { type: 'json' };
 
-const { Client } = pg;
 const {
   orders: {
     chanceToMakeOrder,
@@ -19,11 +14,7 @@ const {
   },
 } = generationConfig;
 
-const client = new Client(config);
-
-User._client = client;
-Product._client = client;
-Order._client = client;
+const { client, User, Product, Order } = models;
 
 const users = await getUsers();
 
