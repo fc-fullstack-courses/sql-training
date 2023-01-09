@@ -38,5 +38,21 @@
     "maxQuantity": 10,
     "minProductsInOrder": 1,
     "maxProductsInOrder": 10
+  },
+  "reviews": {
+    "reviewChance": 33,
+    "ratingThresholds": {
+      "maxNegative": 4,
+      "minPositive": 7
+    },
+    "descriptions": {
+      "positive": ["positive review", "very positive review", "nice review"],
+      "neutral": ["neutral review"],
+      "negative": ["negative review", "very negative review"]
+    }
+  },
+  "ratings": {
+    "minRating": 1,
+    "maxRating": 10
   }
 }
