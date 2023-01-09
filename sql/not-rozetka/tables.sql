@@ -46,14 +46,14 @@ CREATE TABLE reviews (
 -- 1 : 1
 CREATE TABLE ratings (
   id serial PRIMARY KEY,
-  review_id int NOT NULL UNIQUE REFERENCES reviews,
+  review_id int NOT NULL UNIQUE REFERENCES reviews DEFERRABLE INITIALLY DEFERRED,
   rating numeric(3,1) NOT NULL CHECK(rating > 0 AND rating <= 10),
   created_at timestamp NOT NULL DEFAULT current_timestamp,
   updated_at timestamp NOT NULL DEFAULT current_timestamp  
 );
 --
 ALTER TABLE reviews
-ADD FOREIGN KEY (rating_id) REFERENCES ratings (id);
+ADD FOREIGN KEY (rating_id) REFERENCES ratings (id) DEFERRABLE INITIALLY DEFERRED;
 -- n : m - через связующую таблицу
 CREATE TABLE orders (
   id serial PRIMARY KEY,
