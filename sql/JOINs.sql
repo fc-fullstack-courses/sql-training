@@ -91,38 +91,78 @@ GROUP BY order_id;
 --
 SELECT order_id, count (DISTINCT p.category)
 FROM orders_to_products otp
-JOIN products p ON p.id = product_id
+    JOIN products p ON p.id = product_id
 WHERE order_id = 1
 GROUP BY order_id;
 -- данные о товаре и в скольких заказах он есть
-SELECT p.*, count(*)
+SELECT p.*,
+    count(*)
 FROM products p
-JOIN orders_to_products otp ON product_id = p.id
-GROUP BY p.id 
+    JOIN orders_to_products otp ON product_id = p.id
+GROUP BY p.id
 ORDER BY count(*) ASC;
 /*
-показать все отзывы и оценки
-
-количество заказов каждого пользователя и его имя и фамилию
-
-данные о пользователе, товаре который он купил и его отзыв с рейтингом
-
-найти самый популярный товар (находится в наибольшем количестве заказов)
-
-все товары с максимальной оценкой отзыва и количество таких отзывов
-
-пользователи и количество купленных ими уникальных товаров (подзапросы)
-
-**все заказы со стоимостью заказа выше средней стоимости заказа (подзапросы)
-
-*/
-
+ показать все отзывы и оценки
+ 
+ количество заказов каждого пользователя и его имя и фамилию
+ 
+ данные о пользователе, товаре который он купил и его отзыв с рейтингом
+ 
+ найти самый популярный товар (находится в наибольшем количестве заказов)
+ 
+ все товары с максимальной оценкой отзыва и количество таких отзывов
+ 
+ пользователи и количество купленных ими уникальных товаров (подзапросы)
+ 
+ **все заказы со стоимостью заказа выше средней стоимости заказа (подзапросы)
+ 
+ */
 --@block показать все отзывы и оценки
-SELECT rev.id, user_id, product_id, rating, description 
+SELECT rev.id,
+    user_id,
+    product_id,
+    rating,
+    description
 FROM reviews rev
-JOIN ratings rat ON rat.review_id = rev.id;
+    JOIN ratings rat ON rat.review_id = rev.id;
 --@block количество заказов каждого пользователя и его имя и фамилию
-SELECT u.id, first_name, last_name, count(o.id)
+SELECT u.id,
+    first_name,
+    last_name,
+    count(o.id)
 FROM users u
-LEFT JOIN orders o ON user_id = u.id
+    LEFT JOIN orders o ON user_id = u.id
 GROUP BY u.id;
+--@block данные о пользователе, товаре который он купил и его отзыв с рейтингом
+SELECT u.email,
+    p.name,
+    p.manufacturer,
+    p.category,
+    rev.description,
+    rating
+FROM reviews rev
+    JOIN ratings rat ON rat.id = rating_id
+    JOIN users u ON u.id = user_id
+    JOIN products p ON product_id = p.id
+WHERE rev.id = 4;
+--@block найти самый популярный товар (находится в наибольшем количестве заказов)
+SELECT p.name,
+    p.manufacturer,
+    p.category,
+    count(*)
+FROM products p
+    JOIN orders_to_products otp ON otp.product_id = p.id
+GROUP BY p.id
+ORDER BY count(*) DESC
+LIMIT 1;
+--@block все товары с максимальной оценкой отзыва и количество таких отзывов
+SELECT p.name,
+    p.manufacturer,
+    p.category,
+    rating,
+    count(*)
+FROM products p
+JOIN reviews rev ON rev.product_id = p.id
+JOIN ratings rat ON rat.id = rating_id
+WHERE rating = (SELECT max(rating) FROM ratings)
+GROUP BY p.id, rating;
