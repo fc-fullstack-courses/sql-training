@@ -13,3 +13,11 @@ CASE
 END gender,
 is_male
 FROM users;
+--@block
+SELECT first_name, last_name, email,
+CASE is_male
+  WHEN TRUE THEN 'male'
+  WHEN FALSE THEN 'female'
+END gender,
+is_male
+FROM users;
