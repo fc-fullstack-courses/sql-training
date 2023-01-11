@@ -206,3 +206,14 @@ FROM (
     JOIN orders_to_products otp ON product_id = p.id
     GROUP BY order_id
 ) as orders_with_total_price);
+-- WITH
+WITH orders_with_total_price AS (
+    SELECT order_id, sum (otp.quantity * p.price ) total
+    FROM products p
+    JOIN orders_to_products otp ON product_id = p.id
+    GROUP BY order_id
+), avg_order_price AS (
+    SELECT avg(total) FROM orders_with_total_price
+)
+SELECT * FROM orders_with_total_price
+WHERE total > (SELECT * FROM avg_order_price);
