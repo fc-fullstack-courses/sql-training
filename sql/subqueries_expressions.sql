@@ -28,3 +28,15 @@ WHERE users.id NOT IN (
     FROM reviews
   )
 GROUP BY users.id;
+-- SOME / ANY
+SELECT products.* FROM products
+WHERE id = ANY (
+    SELECT product_id
+    FROM orders_to_products
+  );
+-- ALL
+SELECT order_id, product_id FROM orders_to_products
+WHERE quantity > ALL (SELECT quantity FROM products);
+--
+UPDATE orders_to_products SET  quantity = 50000
+WHERE order_id = 1 AND product_id = 5606;
