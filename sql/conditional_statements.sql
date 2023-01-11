@@ -41,3 +41,9 @@ SELECT COALESCE(min_age, 0), * FROM products
 ORDER BY id ASC;
 --
 UPDATE products SET min_age = 18 WHERE id = 1;
+-- NULLIF
+SELECT NULLIF(2,4);
+SELECT NULLIF(4,4);
+SELECT NULLIF(NULL, 4);
+SELECT NULLIF (COALESCE(min_age, 0), 0 ) ,* FROM products
+ORDER BY id ASC;
