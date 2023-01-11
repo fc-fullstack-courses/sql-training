@@ -35,3 +35,9 @@ END gender,
 -- END age_bracket,
 is_male
 FROM users;
+-- COALESCE
+--@block
+SELECT COALESCE(min_age, 0), * FROM products
+ORDER BY id ASC;
+--
+UPDATE products SET min_age = 18 WHERE id = 1;
