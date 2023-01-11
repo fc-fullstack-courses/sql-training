@@ -166,3 +166,43 @@ JOIN reviews rev ON rev.product_id = p.id
 JOIN ratings rat ON rat.id = rating_id
 WHERE rating = (SELECT max(rating) FROM ratings)
 GROUP BY p.id, rating;
+--@block все заказы со стоимостью заказа выше средней стоимости заказа (подзапросы)
+/* 1 найдем стоимость каждого заказа*/
+SELECT order_id, sum (otp.quantity * p.price )
+FROM products p
+JOIN orders_to_products otp ON product_id = p.id
+GROUP BY order_id;
+/* 2 найти среднюю стоимость заказа */
+SELECT avg(total)
+FROM (
+    SELECT order_id, sum (otp.quantity * p.price ) total
+    FROM products p
+    JOIN orders_to_products otp ON product_id = p.id
+    GROUP BY order_id
+) as orders_with_total_price;
+-- 3 соединяем наши данные
+SELECT order_id, sum (otp.quantity * p.price )
+FROM products p
+JOIN orders_to_products otp ON product_id = p.id
+GROUP BY order_id
+HAVING sum (otp.quantity * p.price ) > (SELECT avg(total)
+FROM (
+    SELECT order_id, sum (otp.quantity * p.price ) total
+    FROM products p
+    JOIN orders_to_products otp ON product_id = p.id
+    GROUP BY order_id
+) as orders_with_total_price);
+--
+SELECT * FROM (
+    SELECT order_id, sum (otp.quantity * p.price ) total
+    FROM products p
+    JOIN orders_to_products otp ON product_id = p.id
+    GROUP BY order_id
+) orders_with_total_price
+WHERE total > (SELECT avg(total)
+FROM (
+    SELECT order_id, sum (otp.quantity * p.price ) total
+    FROM products p
+    JOIN orders_to_products otp ON product_id = p.id
+    GROUP BY order_id
+) as orders_with_total_price);
