@@ -64,3 +64,8 @@ FROM work.departments d
 JOIN work.workers w ON d.id = w.department_id;
 -- посчитайте общую сумму зп, которую платит отдел сотрудника
 -- и общую сумму зп которую платит компания
+SELECT w.name "Worker name", salary, d.name "Department name",
+sum(salary) OVER (PARTITION BY d.id ORDER BY w.id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) "Total salary for dep",
+sum(salary) OVER () "Total salary for company"
+FROM work.departments d
+JOIN work.workers w ON d.id = w.department_id;
