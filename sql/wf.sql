@@ -62,3 +62,5 @@ avg(salary) OVER (PARTITION BY d.id) "Average salary for dep",
 avg(salary) OVER () "Average salary for company"
 FROM work.departments d
 JOIN work.workers w ON d.id = w.department_id;
+-- посчитайте общую сумму зп, которую платит отдел сотрудника
+-- и общую сумму зп которую платит компания
