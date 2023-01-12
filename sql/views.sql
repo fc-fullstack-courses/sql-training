@@ -21,6 +21,8 @@ SELECT * FROM mat_orders_with_total
 WHERE total > (SELECT avg(total) FROM mat_orders_with_total);
 -- обновить данные в вьюхе
 REFRESH MATERIALIZED VIEW mat_orders_with_total;
+DROP VIEW orders_with_total;
+DROP MATERIALIZED VIEW mat_orders_with_total;
 -- создать вьюшку, в которй будет
 -- имя и фамилия юзера
 -- его возраст 
