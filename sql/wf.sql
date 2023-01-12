@@ -56,3 +56,9 @@ JOIN (
   JOIN work.workers w ON d.id = w.department_id
   GROUP BY d.id
 ) dep_with_avg_salary ON dep_with_avg_salary."Department name" = d.name;
+--
+SELECT w.name "Worker name", salary, d.name "Department name",
+avg(salary) OVER (PARTITION BY d.id) "Average salary for dep",
+avg(salary) OVER () "Average salary for company"
+FROM work.departments d
+JOIN work.workers w ON d.id = w.department_id;
